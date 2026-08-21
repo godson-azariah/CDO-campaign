@@ -1,26 +1,163 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tokens lifted from ignitho.com so this page sits inside the same system. */
+@theme {
+  --color-brand: #2300b2;
+  --color-violet: #7a00c2;
+  --color-link: #622baa;
+  --color-accent: #00a274;
+  --color-accent-dark: #07924f;
+  --color-green: #0f9d58;
+  --color-green-line: #16b981;
+  --color-cyan: #7ddde0;
+
+  --color-ink: #030303;
+  --color-heading: #1d0f2a;
+  --color-body: #3f3a4a;
+  --color-muted: #6b6080;
+
+  --color-line: #e3d9f5;
+  --color-card-line: #efe8fb;
+  --color-placeholder: #a99cc0;
+
+  --shadow-card: 0 8px 26px rgba(74, 18, 184, 0.08);
+  --shadow-tile: 0 6px 18px rgba(74, 18, 184, 0.07);
+  --shadow-tile-hover: 0 9px 22px rgba(74, 18, 184, 0.1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-urbanist);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: var(--color-body);
+  font-family: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+.bg-brand-gradient {
+  background-image:
+    radial-gradient(95% 85% at 22% 18%, #7600c88c 0%, #0000 58%),
+    linear-gradient(
+      125deg,
+      #16063a 0%,
+      #2c0a78 28%,
+      #4a12b8 52%,
+      #123e68 86%,
+      #0a5670 100%
+    );
+}
+
+.trap-section {
+  background: #f0e8ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.trap-section:before {
+  content: "";
+  z-index: 0;
+  opacity: 0.9;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #7a00c22e 1px, #0000 1px);
+  background-size: 28px 28px;
+  position: absolute;
+  inset: 0;
+}
+
+.trap-section:after {
+  content: "";
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#7a00c20f 1px, #0000 1px),
+    linear-gradient(90deg, #7a00c20f 1px, #0000 1px);
+  background-size: 56px 56px;
+  position: absolute;
+  inset: 0;
+}
+
+.trap-section-light {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.trap-section-light:before,
+.trap-section-light:after {
+  content: "";
+  z-index: 0;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.trap-section-light:before {
+  opacity: 1;
+  background-image: radial-gradient(circle, #7a00c21a 1px, #0000 1px);
+  background-size: 28px 28px;
+}
+
+.trap-section-light:after {
+  opacity: 0.62;
+  background-image:
+    linear-gradient(#7a00c20b 1px, #0000 1px),
+    linear-gradient(90deg, #7a00c20b 1px, #0000 1px);
+  background-size: 56px 56px;
+}
+
+.trap-section > *,
+.trap-section-light > * {
+  z-index: 1;
+  position: relative;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise {
+    animation: none;
+  }
+}
+
+/* Compact landing hero (kept from the earlier revision) */
+.hero-wash {
+  background:
+    radial-gradient(120% 90% at 82% 8%, rgba(34, 197, 140, 0.22) 0%, transparent 55%),
+    radial-gradient(90% 70% at 12% 92%, rgba(124, 58, 237, 0.45) 0%, transparent 60%),
+    linear-gradient(118deg, #2a1266 0%, #451a9e 42%, #3a2f9c 68%, #1c6a85 100%);
+}
+
+.dot-grid {
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.text-gradient {
+  background: linear-gradient(96deg, #c9b4ff 0%, #a7ebd6 60%, #6ee7c0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+

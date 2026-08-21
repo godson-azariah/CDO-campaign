@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Keep the template in git even though .env* is ignored
+!.env.example
+
+# design references, not part of the build
+/reference
