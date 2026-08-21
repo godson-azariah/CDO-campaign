@@ -15,11 +15,21 @@ export default function ContactSection() {
           className="pointer-events-none absolute top-[6%] left-1/2 hidden h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-[#7a00c2]/[0.07] blur-[120px] lg:block"
         />
 
-        {/* items-stretch + h-full on both children keeps the two cards exactly
-            the same height on desktop; below lg they stack naturally. */}
+        {/* items-stretch + h-full on both cards keeps them exactly the same
+            height on desktop; below lg they stack naturally. */}
         <div className="relative mx-auto grid max-w-[1320px] items-stretch gap-6 sm:gap-8 lg:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-[40px]">
-          <WhyBookThisCall />
-          <ConversationForm />
+          {/*
+            The form is first in the DOM so it leads on a phone — someone who
+            scrolled this far wants to book, not read the pitch again. On desktop
+            the order flips back: reasons on the left, form on the right.
+          */}
+          <div className="h-full lg:order-2">
+            <ConversationForm />
+          </div>
+
+          <div className="h-full lg:order-1">
+            <WhyBookThisCall />
+          </div>
         </div>
       </div>
     </section>
