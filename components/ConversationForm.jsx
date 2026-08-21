@@ -1,13 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { COUNTRIES, PRIORITY_COUNTRIES } from "@/lib/countries";
-import { normalizeZone } from "@/lib/timezones";
 import { ErrorText, Field, SelectField, TextareaField } from "./FormField";
 import PhoneField from "./PhoneField";
 import { phoneErrorFor } from "@/lib/dialCodes";
 import RecaptchaBox from "./RecaptchaBox";
-import TimezoneCombobox from "./TimezoneCombobox";
 
 const EMPTY = {
   firstName: "",
@@ -21,7 +19,6 @@ const EMPTY = {
   state: "",
   zip: "",
   country: "",
-  timezone: "",
   additionalInfo: "",
 };
 
@@ -38,7 +35,6 @@ const REQUIRED_LABELS = {
   state: "State / province is required",
   zip: "ZIP / postal code is required",
   country: "Please select your country",
-  timezone: "Please select your time zone",
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -71,21 +67,6 @@ function validate(values, verified) {
   return errors;
 }
 
-const subscribeToNothing = () => () => {};
-
-/** Reads the visitor's IANA zone on the client only, so hydration can't disagree. */
-function useDetectedTimezone() {
-  const getSnapshot = useCallback(() => {
-    try {
-      return normalizeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    } catch {
-      return "";
-    }
-  }, []);
-
-  return useSyncExternalStore(subscribeToNothing, getSnapshot, () => "");
-}
-
 /** Runs the full ruleset but keeps only the message for one field. */
 function validateField(key, values, verified) {
   return validate(values, verified)[key];
@@ -109,10 +90,6 @@ export default function ConversationForm() {
   const honeypotRef = useRef(null);
   const startedAt = useRef(0);
 
-  const detectedTimezone = useDetectedTimezone();
-  // The visitor's own zone is pre-filled but stays fully editable.
-  const timezone = values.timezone || detectedTimezone;
-
   useEffect(() => {
     startedAt.current = Date.now();
   }, []);
@@ -128,7 +105,7 @@ export default function ConversationForm() {
           // Untouched: never introduce an error mid-typing, only clear a stale one.
           return current[key] ? { ...current, [key]: undefined } : current;
         }
-        return { ...current, [key]: validateField(key, { ...next, timezone }, verified) };
+        return { ...current, [key]: validateField(key, next, verified) };
       });
 
       return next;
@@ -139,7 +116,7 @@ export default function ConversationForm() {
     setTouched((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
     setErrors((current) => ({
       ...current,
-      [key]: validateField(key, { ...values, timezone }, verified),
+      [key]: validateField(key, values, verified),
     }));
   };
 
@@ -165,7 +142,7 @@ export default function ConversationForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const payload = { ...values, timezone };
+    const payload = { ...values };
     const found = validate(payload, verified);
     setErrors(found);
     setTouched(Object.fromEntries(Object.keys(EMPTY).map((key) => [key, true])));
@@ -384,17 +361,6 @@ export default function ConversationForm() {
         </SelectField>
 
 
-        <TimezoneCombobox
-          id="timezone"
-          label="Time Zone"
-          className="sm:col-span-6 lg:col-span-12"
-          value={timezone}
-          error={errors.timezone}
-          onChange={(zone) => {
-            setValues((prev) => ({ ...prev, timezone: zone }));
-            setErrors((prev) => (prev.timezone ? { ...prev, timezone: undefined } : prev));
-          }}
-        />
 
         <TextareaField
           id="additionalInfo"
