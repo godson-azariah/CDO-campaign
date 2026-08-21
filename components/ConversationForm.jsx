@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { COUNTRIES, PRIORITY_COUNTRIES } from "@/lib/countries";
-import { TIMEZONES, normalizeZone } from "@/lib/timezones";
+import { normalizeZone } from "@/lib/timezones";
 import { ErrorText, Field, SelectField, TextareaField } from "./FormField";
 import PhoneField from "./PhoneField";
 import { phoneErrorFor } from "@/lib/dialCodes";
@@ -21,8 +21,6 @@ const EMPTY = {
   state: "",
   zip: "",
   country: "",
-  preferredDate: "",
-  preferredTime: "",
   timezone: "",
   additionalInfo: "",
 };
@@ -40,8 +38,6 @@ const REQUIRED_LABELS = {
   state: "State / province is required",
   zip: "ZIP / postal code is required",
   country: "Please select your country",
-  preferredDate: "Please choose a preferred date",
-  preferredTime: "Please choose a preferred time",
   timezone: "Please select your time zone",
 };
 
@@ -73,17 +69,6 @@ function validate(values, verified) {
   if (!verified) errors.robot = "Please confirm you are not a robot";
 
   return errors;
-}
-
-function formatDate(value) {
-  if (!value) return "";
-  const [y, m, d] = value.split("-").map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 }
 
 const subscribeToNothing = () => () => {};
@@ -121,7 +106,6 @@ export default function ConversationForm() {
   // just noise.
   const [touched, setTouched] = useState({});
   const formRef = useRef(null);
-  const dateRef = useRef(null);
   const honeypotRef = useRef(null);
   const startedAt = useRef(0);
 
@@ -130,7 +114,6 @@ export default function ConversationForm() {
   const timezone = values.timezone || detectedTimezone;
 
   useEffect(() => {
-    dateRef.current?.setAttribute("min", new Date().toISOString().slice(0, 10));
     startedAt.current = Date.now();
   }, []);
 
@@ -233,8 +216,6 @@ export default function ConversationForm() {
   }
 
   if (done) {
-    const zoneLabel = TIMEZONES.find((z) => z.value === timezone)?.label ?? timezone;
-
     return (
       <div className="flex h-full flex-col justify-center rounded-[14px] border border-green-line bg-white p-[30px] text-center shadow-card">
         <span className="mx-auto flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#eaf7f1] text-green">
@@ -267,18 +248,9 @@ export default function ConversationForm() {
           )}
         </p>
 
-        <div className="mx-auto mt-[24px] rounded-[12px] border border-card-line bg-[#faf7ff] px-[26px] py-[18px]">
-          <p className="text-[12px] font-bold tracking-[0.1em] text-violet uppercase">
-            Requested slot
-          </p>
-          <p className="mt-[6px] text-[16px] font-bold text-heading">
-            {formatDate(values.preferredDate)} at {values.preferredTime}
-          </p>
-          <p className="mt-[2px] text-[14px] text-muted">{zoneLabel}</p>
-        </div>
 
         <p className="mx-auto mt-[22px] max-w-[420px] text-[14px] leading-[22px] text-muted">
-          Roney will confirm the slot by email within one business day.
+          Roney will be in touch by email within one business day to arrange a time.
         </p>
       </div>
     );
@@ -291,7 +263,7 @@ export default function ConversationForm() {
       onSubmit={handleSubmit}
       onKeyDown={handleKeyDown}
       noValidate
-      className="flex h-full scroll-mt-[112px] flex-col rounded-[14px] border border-green-line bg-white p-[20px] shadow-[0_18px_50px_-18px_rgba(74,18,184,0.22)] sm:p-[30px]"
+      className="flex h-full scroll-mt-[124px] flex-col rounded-[14px] border border-green-line bg-white p-[20px] shadow-[0_18px_50px_-18px_rgba(74,18,184,0.22)] sm:p-[30px]"
     >
       {/* honeypot — hidden from humans, irresistible to bots */}
       <div className="absolute h-0 w-0 overflow-hidden" aria-hidden="true">
@@ -316,8 +288,8 @@ export default function ConversationForm() {
           className="mt-[16px] block h-[3px] w-[46px] rounded-full bg-green"
         />
         <p className="mt-[16px] text-[15px] leading-[25px] text-muted sm:text-[15.5px] sm:leading-[26px]">
-          Tell us a little about you and pick a slot that suits. Roney will
-          confirm by email within one business day.
+          Tell us a little about you and Roney will be in touch within one
+          business day to arrange a time that suits.
         </p>
       </div>
 
@@ -411,25 +383,11 @@ export default function ConversationForm() {
           </optgroup>
         </SelectField>
 
-        <Field {...field("preferredDate", "Preferred Date")}
-          alwaysFloat
-          className="sm:col-span-3 lg:col-span-4"
-          ref={dateRef}
-          type="date"
-        />
-        <Field
-          {...field("preferredTime", "Preferred Time (24h)")}
-          alwaysFloat
-          className="sm:col-span-3 lg:col-span-4"
-          type="time"
-          step={1800}
-          lang="en-GB"
-        />
 
         <TimezoneCombobox
           id="timezone"
           label="Time Zone"
-          className="sm:col-span-6 lg:col-span-4"
+          className="sm:col-span-6 lg:col-span-12"
           value={timezone}
           error={errors.timezone}
           onChange={(zone) => {

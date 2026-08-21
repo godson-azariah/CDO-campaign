@@ -25,26 +25,33 @@ export default function WhyBookThisCall() {
       />
 
       {/*
-        Each item takes an equal share of the leftover height rather than the
-        gaps absorbing it all, so the dividers stay evenly spaced however tall
-        the form beside this grows.
+        Each item takes an equal share of the leftover height so the dividers
+        stay evenly spaced however tall the form beside this grows.
       */}
       <ol className="mt-[26px] flex flex-1 flex-col">
         {REASONS.map((reason, index) => (
           <li
             key={reason.title}
-            className="flex flex-1 items-center gap-[16px] border-t border-card-line py-[24px] first:border-t-0 first:pt-0 last:pb-0"
+            className="flex flex-1 flex-col justify-center border-t border-card-line py-[24px] first:border-t-0 first:pt-0 last:pb-0"
           >
-            <span className="w-[26px] shrink-0 self-start pt-[3px] text-[15px] leading-[24px] font-extrabold tabular-nums text-violet">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <div className="min-w-0">
-              <h3 className="text-[18px] leading-[25px] font-bold text-heading sm:text-[19px] sm:leading-[26px]">
-                {reason.title}
-              </h3>
-              <p className="mt-[10px] text-[16px] leading-[28px] text-muted sm:text-[16.5px] sm:leading-[29px]">
-                {reason.copy}
-              </p>
+            {/*
+              The number and the text are centred together as one block. Centring
+              them separately let the number drift to the top of the stretched
+              row while the text sat in the middle.
+            */}
+            <div className="flex gap-[16px]">
+              <span className="w-[26px] shrink-0 text-[15px] leading-[25px] font-extrabold tabular-nums text-violet sm:leading-[26px]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="min-w-0">
+                {/* Same leading as the number, so their first lines share a baseline. */}
+                <h3 className="text-[18px] leading-[25px] font-bold text-heading sm:text-[19px] sm:leading-[26px]">
+                  {reason.title}
+                </h3>
+                <p className="mt-[10px] text-[16px] leading-[28px] text-muted sm:text-[16.5px] sm:leading-[29px]">
+                  {reason.copy}
+                </p>
+              </div>
             </div>
           </li>
         ))}

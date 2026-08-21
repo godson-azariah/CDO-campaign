@@ -31,9 +31,7 @@ export default function FancyAChat() {
             </span>
           </p>
           <a
-            href="https://www.ignitho.com/contact-us/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#conversation-form"
             className="mt-[30px] inline-flex items-center justify-center rounded-full bg-accent px-[26px] py-[12px] text-[15px] font-semibold text-white transition-colors hover:bg-accent-dark lg:px-[38px] lg:py-[16px] lg:text-[18px]"
           >
             Schedule A Discovery Call
