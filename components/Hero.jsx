@@ -23,17 +23,26 @@ export default function Hero() {
       />
 
       <div className="relative z-20 mx-auto max-w-3xl px-5 py-[44px] text-center sm:px-8 sm:py-[54px] lg:py-[62px]">
-        <h1 className="mx-auto text-[24px] leading-[1.26] font-extrabold tracking-[-0.03em] text-balance text-white [text-shadow:0_2px_18px_rgba(6,1,24,0.8)] sm:text-[30px] lg:text-[34px]">
-          <span className="block">Rising Demand. Tighter Budgets.</span>
+        {/*
+          Two lines and a button in the space three lines and a standfirst used
+          to take, so the band keeps its height. The type goes up to fill it -
+          fewer words at a larger size, which is the trade a short hero wants.
+        */}
+        <h1 className="mx-auto text-[26px] leading-[1.2] font-extrabold tracking-[-0.03em] text-balance text-white [text-shadow:0_2px_18px_rgba(6,1,24,0.8)] sm:text-[34px] lg:text-[40px]">
           <span className="block text-[#4fd1a5]">
-            Frugal Innovation Is the Answer.
+            Frugal Innovation Is the Answer
           </span>
-          <span className="block">Book 30 Minutes to Find Out How.</span>
+          <span className="block">Do Better With Less</span>
         </h1>
 
-        <p className="mx-auto mt-[14px] max-w-xl text-[14px] leading-[22px] text-white/85 [text-shadow:0_1px_12px_rgba(6,1,24,0.85)] sm:text-[15px]">
-          Backed by Cambridge research, proven at Amgen and IAG.
-        </p>
+        {/* html has scroll-behavior: smooth, so the jump animates on its own. */}
+        <a
+          href="#conversation-form"
+          className="mt-[22px] inline-flex items-center gap-[9px] rounded-full bg-green px-[30px] py-[13px] text-[15px] font-bold text-white shadow-[0_10px_24px_-10px_rgba(0,0,0,0.75)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:text-[16px]"
+        >
+          Sign Up
+          <span aria-hidden="true">&darr;</span>
+        </a>
       </div>
     </section>
   );

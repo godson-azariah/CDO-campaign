@@ -33,20 +33,17 @@ const POINTS = [
 export default function WhyBookThisCall() {
   return (
     <aside className="flex h-full flex-col overflow-hidden rounded-[16px] border border-card-line bg-white shadow-card">
-      {/* ── Masthead ── */}
-      <div className="relative overflow-hidden bg-[linear-gradient(135deg,#3d1391_0%,#2c0a78_55%,#3a1499_100%)] px-[26px] py-[34px] sm:px-[34px] sm:py-[40px]">
-        {/* Fine grid, the same texture the hero band carries. */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.064)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.064)_1px,transparent_1px)] bg-[size:56px_56px]"
-        />
-
-        <div className="relative text-center">
-          {/* Sized to hold on one line in this column. */}
-          <h2 className="text-[24px] leading-[1.14] font-extrabold tracking-[-0.03em] whitespace-nowrap text-white sm:text-[28px]">
-            Sign Up to Get Your Book
-          </h2>
-        </div>
+      {/*
+        ── Masthead ──
+        White, like the list under it - the violet is spent once, on the book
+        offer at the foot, so it still lands as an event rather than as the
+        panel's general colour. The grid layers came off with the violet: they
+        are white hairlines, which have nothing to sit on here.
+      */}
+      <div className="px-[26px] pt-[32px] pb-[8px] text-center sm:px-[34px] sm:pt-[38px] sm:pb-[10px]">
+        <h2 className="text-[24px] leading-[1.18] font-extrabold tracking-[-0.03em] text-balance text-heading sm:text-[28px]">
+          What You&rsquo;ll Discover on the Call
+        </h2>
       </div>
 
       {/*
