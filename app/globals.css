@@ -154,10 +154,4 @@ body {
   background-size: 18px 18px;
 }
 
-.text-gradient {
-  background: linear-gradient(96deg, #c9b4ff 0%, #a7ebd6 60%, #6ee7c0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
 

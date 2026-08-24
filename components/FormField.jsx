@@ -30,7 +30,7 @@ const LABEL_COMMON =
 const LABEL_REST = "top-[18px] text-[15px] leading-[20px] text-placeholder";
 
 const LABEL_FLOATED =
-  "top-[8px] text-[10.5px] leading-[13px] font-bold tracking-[0.07em] uppercase text-muted";
+  "top-[8px] text-[11.5px] leading-[14px] font-semibold tracking-[0.01em] text-muted";
 
 /** Never emit both: equal-specificity utilities would fight over stylesheet order. */
 const labelClass = (floated, extra = "") =>
@@ -39,11 +39,11 @@ const labelClass = (floated, extra = "") =>
 // Applied when the input itself is focused or non-empty.
 const LABEL_PEER = [
   "peer-focus:top-[8px] peer-focus:text-[10.5px] peer-focus:leading-[13px]",
-  "peer-focus:font-bold peer-focus:tracking-[0.07em] peer-focus:uppercase",
+  "peer-focus:font-bold peer-focus:tracking-[0.01em]",
   "peer-focus:text-violet",
-  "peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:text-[10.5px]",
-  "peer-[&:not(:placeholder-shown)]:leading-[13px] peer-[&:not(:placeholder-shown)]:font-bold",
-  "peer-[&:not(:placeholder-shown)]:tracking-[0.07em] peer-[&:not(:placeholder-shown)]:uppercase",
+  "peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:text-[11.5px]",
+  "peer-[&:not(:placeholder-shown)]:leading-[14px] peer-[&:not(:placeholder-shown)]:font-semibold",
+  "peer-[&:not(:placeholder-shown)]:tracking-[0.01em] peer-[&:not(:placeholder-shown)]",
 ].join(" ");
 
 function Asterisk({ show }) {
@@ -54,7 +54,10 @@ function Asterisk({ show }) {
 export function ErrorText({ id, message }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-[6px] text-[12px] leading-[16px] font-medium text-[#e11d48]">
+    <p
+      id={id}
+      className="mt-[6px] text-[12px] leading-[16px] font-medium text-[#e11d48]"
+    >
       {message}
     </p>
   );
@@ -98,7 +101,14 @@ export function Field({
   );
 }
 
-export function SelectField({ id, label, error, children, className = "", ...props }) {
+export function SelectField({
+  id,
+  label,
+  error,
+  children,
+  className = "",
+  ...props
+}) {
   const floated = Boolean(props.value);
 
   return (
@@ -116,7 +126,7 @@ export function SelectField({ id, label, error, children, className = "", ...pro
         </select>
         <label
           htmlFor={id}
-          className={`${labelClass(floated)} peer-focus:top-[8px] peer-focus:text-[10.5px] peer-focus:leading-[13px] peer-focus:font-bold peer-focus:tracking-[0.07em] peer-focus:text-violet peer-focus:uppercase`}
+          className={`${labelClass(floated)} peer-focus:top-[8px] peer-focus:text-[11.5px] peer-focus:leading-[14px] peer-focus:font-semibold peer-focus:tracking-[0.01em] peer-focus:text-violet`}
         >
           {label}
           <Asterisk show />
@@ -153,7 +163,7 @@ export function TextareaField({
           placeholder=" "
           aria-invalid={error ? "true" : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={`${base} ${borderFor(error)} resize-y leading-[24px] ${
+          className={`${base} ${borderFor(error)} min-h-[128px] resize-y leading-[24px] ${
             showCounter ? "pb-[28px]" : "pb-[12px]"
           }`}
           {...props}
@@ -164,7 +174,9 @@ export function TextareaField({
         >
           {label}
           <Asterisk show={required} />
-          {hint && <span className="ml-[4px] font-normal normal-case">{hint}</span>}
+          {hint && (
+            <span className="ml-[4px] font-normal normal-case">{hint}</span>
+          )}
         </label>
         {showCounter && (
           <span className="pointer-events-none absolute right-[14px] bottom-[9px] text-[11px] font-medium tabular-nums text-muted">
@@ -178,15 +190,19 @@ export function TextareaField({
 }
 
 /** Wrapper for controls that manage their own input, e.g. the phone and time zone fields. */
-export function FieldShell({ id, label, error, floated, className = "", children }) {
+export function FieldShell({
+  id,
+  label,
+  error,
+  floated,
+  className = "",
+  children,
+}) {
   return (
     <div className={className}>
       <div className="relative">
         {children}
-        <label
-          htmlFor={id}
-          className={labelClass(floated)}
-        >
+        <label htmlFor={id} className={labelClass(floated)}>
           {label}
           <Asterisk show />
         </label>

@@ -109,7 +109,11 @@ export default function RecaptchaBox({ onChange, error }) {
         </span>
 
         <div className="mt-[2px] mr-[10px] ml-auto flex flex-col items-center">
-          <svg viewBox="0 0 44 44" aria-hidden="true" className="h-[32px] w-[32px]">
+          <svg
+            viewBox="0 0 44 44"
+            aria-hidden="true"
+            className="h-[32px] w-[32px]"
+          >
             <path
               d="M30.5 36.72 A17 17 0 1 1 30.5 7.28"
               fill="none"

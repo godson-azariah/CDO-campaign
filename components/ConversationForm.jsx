@@ -145,7 +145,9 @@ export default function ConversationForm() {
     const payload = { ...values };
     const found = validate(payload, verified);
     setErrors(found);
-    setTouched(Object.fromEntries(Object.keys(EMPTY).map((key) => [key, true])));
+    setTouched(
+      Object.fromEntries(Object.keys(EMPTY).map((key) => [key, true])),
+    );
 
     const firstError = Object.keys(found)[0];
     if (firstError) {
@@ -175,9 +177,13 @@ export default function ConversationForm() {
         if (result.errors) {
           setErrors(result.errors);
           const firstServerError = Object.keys(result.errors)[0];
-          formRef.current?.querySelector('[name="' + firstServerError + '"]')?.focus();
+          formRef.current
+            ?.querySelector('[name="' + firstServerError + '"]')
+            ?.focus();
         }
-        setSubmitError(result.message || "Something went wrong. Please try again.");
+        setSubmitError(
+          result.message || "Something went wrong. Please try again.",
+        );
         return;
       }
 
@@ -218,16 +224,19 @@ export default function ConversationForm() {
           {confirmationSent ? (
             <>
               A confirmation is on its way to{" "}
-              <span className="font-semibold text-heading">{values.workEmail}</span>.
+              <span className="font-semibold text-heading">
+                {values.workEmail}
+              </span>
+              .
             </>
           ) : (
             <>Our team has your request and will be in touch shortly.</>
           )}
         </p>
 
-
         <p className="mx-auto mt-[22px] max-w-[420px] text-[14px] leading-[22px] text-muted">
-          Roney will be in touch by email within one business day to arrange a time.
+          Roney will be in touch by email within one business day to arrange a
+          time.
         </p>
       </div>
     );
@@ -257,17 +266,39 @@ export default function ConversationForm() {
       {/* Mirrors the heading treatment on the Why Book This Call panel, so the
           two columns read as a matched pair rather than a title and a form. */}
       <div className="mb-[26px]">
-        <h2 className="text-[24px] leading-[1.25] font-extrabold tracking-[-0.02em] text-heading sm:text-[28px] lg:text-[30px]">
-          Book Your 30-Minute Conversation
-        </h2>
+        <div className="flex items-center gap-[14px]">
+          <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-green text-white">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="h-[26px] w-[26px]"
+            >
+              <rect x="3" y="5" width="18" height="16" rx="3" />
+              <path d="M3 10h18M8 3v4M16 3v4" />
+              <circle
+                cx="12"
+                cy="15.5"
+                r="1.4"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
+          </span>
+
+          <h2 className="text-[24px] leading-[1.2] font-extrabold tracking-[-0.02em] text-heading sm:text-[28px] lg:text-[30px]">
+            Book Your 30-Minute Conversation
+          </h2>
+        </div>
+
         <span
           aria-hidden="true"
           className="mt-[16px] block h-[3px] w-[46px] rounded-full bg-green"
         />
-        <p className="mt-[16px] text-[15px] leading-[25px] text-muted sm:text-[15.5px] sm:leading-[26px]">
-          Tell us a little about you and Roney will be in touch within one
-          business day to arrange a time that suits.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-x-[22px] gap-y-[20px] sm:grid-cols-6 lg:grid-cols-12">
@@ -295,7 +326,9 @@ export default function ConversationForm() {
           error={errors.phone}
           onChange={(next) => {
             setValues((prev) => ({ ...prev, phone: next }));
-            setErrors((prev) => (prev.phone ? { ...prev, phone: undefined } : prev));
+            setErrors((prev) =>
+              prev.phone ? { ...prev, phone: undefined } : prev,
+            );
           }}
         />
         <Field
@@ -313,7 +346,7 @@ export default function ConversationForm() {
           id="address"
           label="Address"
           required
-          rows={2}
+          rows={3}
           maxLength={300}
           showCounter={false}
           className="sm:col-span-6 lg:col-span-12"
@@ -360,8 +393,6 @@ export default function ConversationForm() {
           </optgroup>
         </SelectField>
 
-
-
         <TextareaField
           id="additionalInfo"
           label="Additional Information"
@@ -377,7 +408,9 @@ export default function ConversationForm() {
         error={errors.robot}
         onChange={(next) => {
           setVerified(next);
-          setErrors((prev) => (prev.robot ? { ...prev, robot: undefined } : prev));
+          setErrors((prev) =>
+            prev.robot ? { ...prev, robot: undefined } : prev,
+          );
         }}
       />
       <ErrorText id="robot-error" message={errors.robot} />

@@ -6,10 +6,11 @@ import { OFFICE_TABS } from "@/lib/offices";
 
 export default function OurOffices() {
   const [activeId, setActiveId] = useState(OFFICE_TABS[0].id);
-  const active = OFFICE_TABS.find((tab) => tab.id === activeId) ?? OFFICE_TABS[0];
+  const active =
+    OFFICE_TABS.find((tab) => tab.id === activeId) ?? OFFICE_TABS[0];
 
   return (
-    <section className="trap-section py-[48px] lg:py-[70px]">
+    <section className="trap-section-light py-[48px] lg:py-[70px]">
       <div className="mx-auto w-full max-w-[1440px] px-5 lg:px-[38px]">
         <h2 className="text-center text-[30px] leading-[1.3] font-bold text-heading sm:text-[36px] lg:text-[44px] lg:leading-[57.2px]">
           Our Offices
@@ -66,7 +67,9 @@ export default function OurOffices() {
                 </div>
 
                 <div className="px-[20px] pt-[18px] pb-[22px]">
-                  <h3 className="text-[17px] font-bold text-violet">{office.name}</h3>
+                  <h3 className="text-[17px] font-bold text-violet">
+                    {office.name}
+                  </h3>
                   <address className="mt-[10px] text-[15px] leading-[24px] text-muted not-italic">
                     {office.lines.map((line) => (
                       <span key={line} className="block">

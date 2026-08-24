@@ -14,7 +14,13 @@ import { ChevronDownIcon } from "./icons";
  *
  * The value handed to the parent is always "<dial> <national>".
  */
-export default function PhoneField({ id, label, onChange, error, className = "" }) {
+export default function PhoneField({
+  id,
+  label,
+  onChange,
+  error,
+  className = "",
+}) {
   const [country, setCountry] = useState(DEFAULT_DIAL);
   const [national, setNational] = useState("");
   const [open, setOpen] = useState(false);
@@ -84,7 +90,9 @@ export default function PhoneField({ id, label, onChange, error, className = "" 
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
       const step = event.key === "ArrowDown" ? 1 : -1;
-      setActive((i) => (matches.length ? (i + step + matches.length) % matches.length : 0));
+      setActive((i) =>
+        matches.length ? (i + step + matches.length) % matches.length : 0,
+      );
       return;
     }
     if (event.key === "Enter") {
@@ -139,7 +147,7 @@ export default function PhoneField({ id, label, onChange, error, className = "" 
             />
             <label
               htmlFor={id}
-              className="pointer-events-none absolute top-[18px] left-[14px] text-[15px] leading-[20px] text-placeholder transition-all duration-150 peer-focus:top-[8px] peer-focus:text-[10.5px] peer-focus:leading-[13px] peer-focus:font-bold peer-focus:tracking-[0.07em] peer-focus:text-violet peer-focus:uppercase peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:text-[10.5px] peer-[&:not(:placeholder-shown)]:leading-[13px] peer-[&:not(:placeholder-shown)]:font-bold peer-[&:not(:placeholder-shown)]:tracking-[0.07em] peer-[&:not(:placeholder-shown)]:uppercase"
+              className="pointer-events-none absolute top-[18px] left-[14px] text-[15px] leading-[20px] text-placeholder transition-all duration-150 peer-focus:top-[8px] peer-focus:text-[11.5px] peer-focus:leading-[14px] peer-focus:font-semibold peer-focus:tracking-[0.01em] peer-focus:text-violet peer-[&:not(:placeholder-shown)]:top-[8px] peer-[&:not(:placeholder-shown)]:text-[11.5px] peer-[&:not(:placeholder-shown)]:leading-[14px] peer-[&:not(:placeholder-shown)]:font-semibold peer-[&:not(:placeholder-shown)]:tracking-[0.01em] peer-[&:not(:placeholder-shown)]"
             >
               {label}
               <span className="ml-[3px] text-[#e11d48]">*</span>
@@ -176,12 +184,20 @@ export default function PhoneField({ id, label, onChange, error, className = "" 
                     onMouseEnter={() => setActive(index)}
                     onClick={() => selectCountry(entry)}
                     className={`flex w-full items-center gap-[10px] px-[14px] py-[8px] text-left text-[13.5px] ${
-                      index === active ? "bg-[#f4ecff] text-violet" : "text-body"
+                      index === active
+                        ? "bg-[#f4ecff] text-violet"
+                        : "text-body"
                     }`}
                   >
-                    <span className="w-[26px] shrink-0 font-semibold">{entry.iso}</span>
-                    <span className="min-w-0 flex-1 truncate">{entry.name}</span>
-                    <span className="shrink-0 text-muted tabular-nums">{entry.dial}</span>
+                    <span className="w-[26px] shrink-0 font-semibold">
+                      {entry.iso}
+                    </span>
+                    <span className="min-w-0 flex-1 truncate">
+                      {entry.name}
+                    </span>
+                    <span className="shrink-0 text-muted tabular-nums">
+                      {entry.dial}
+                    </span>
                   </button>
                 </li>
               ))}
