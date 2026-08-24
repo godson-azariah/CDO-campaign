@@ -17,17 +17,17 @@ export default function ContactSection() {
 
         {/* items-stretch + h-full on both cards keeps them exactly the same
             height on desktop; below lg they stack naturally. */}
-        <div className="relative mx-auto grid max-w-[1320px] items-stretch gap-6 sm:gap-8 lg:grid-cols-[minmax(0,510px)_minmax(0,1fr)] lg:gap-[40px]">
+        <div className="relative mx-auto grid max-w-[1320px] items-stretch gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-[40px]">
           {/*
             The form is first in the DOM so it leads on a phone — someone who
             scrolled this far wants to book, not read the pitch again. On desktop
-            the order flips back: reasons on the left, form on the right.
+            it keeps that position: form on the left, reasons on the right.
           */}
-          <div className="h-full lg:order-2">
+          <div className="h-full lg:order-1">
             <ConversationForm />
           </div>
 
-          <div className="h-full lg:order-1">
+          <div className="h-full lg:order-2">
             <WhyBookThisCall />
           </div>
         </div>

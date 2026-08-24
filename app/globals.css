@@ -144,8 +144,16 @@ body {
 /* Compact landing hero (kept from the earlier revision) */
 .hero-wash {
   background:
-    radial-gradient(120% 90% at 82% 8%, rgba(34, 197, 140, 0.22) 0%, transparent 55%),
-    radial-gradient(90% 70% at 12% 92%, rgba(124, 58, 237, 0.45) 0%, transparent 60%),
+    radial-gradient(
+      120% 90% at 82% 8%,
+      rgba(34, 197, 140, 0.22) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 70% at 12% 92%,
+      rgba(124, 58, 237, 0.45) 0%,
+      transparent 60%
+    ),
     linear-gradient(118deg, #2a1266 0%, #451a9e 42%, #3a2f9c 68%, #1c6a85 100%);
 }
 
@@ -154,4 +162,41 @@ body {
   background-size: 18px 18px;
 }
 
+/*
+ * Pale lavender variant of the trap section — the same wash the rest of
+ * ignitho.com uses behind its content bands, a touch lighter than
+ * .trap-section so the offices sit back from the form above them.
+ */
+.trap-section-tint {
+  background: #f4effb;
+  position: relative;
+  overflow: hidden;
+}
 
+.trap-section-tint:before,
+.trap-section-tint:after {
+  content: "";
+  z-index: 0;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.trap-section-tint:before {
+  opacity: 0.9;
+  background-image: radial-gradient(circle, #7a00c226 1px, #0000 1px);
+  background-size: 28px 28px;
+}
+
+.trap-section-tint:after {
+  opacity: 0.85;
+  background-image:
+    linear-gradient(#7a00c20f 1px, #0000 1px),
+    linear-gradient(90deg, #7a00c20f 1px, #0000 1px);
+  background-size: 56px 56px;
+}
+
+.trap-section-tint > * {
+  z-index: 1;
+  position: relative;
+}

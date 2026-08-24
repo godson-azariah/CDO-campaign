@@ -1,119 +1,88 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 
 /*
- * A wall of photos that fills the hero completely — no gradient shows through.
+ * Team photos banked along both edges of the hero.
  *
- * Each tile is sized as a percentage of the band and cropped with object-cover,
- * so between them they tile the whole area with a little overlap at every seam.
- * Sizes are deliberately lopsided: one tall panel down the middle, a couple of
- * broad ones, a few smaller fillers. Each photo is used exactly once.
+ * The rule here is that nothing gets cropped: every tile runs the full height of
+ * the band and lets its width follow its own aspect ratio, so each photo is
+ * shown whole. That is why the widths are uneven - a portrait shot is narrow, a
+ * group shot is wide - and the unevenness is what stops the row reading as a row
+ * of boxes. They butt straight up against each other with square corners, so the
+ * bank reads as one continuous wall rather than separate framed pictures.
  *
- * The container is inset negatively so it extends past the hero on every side.
- * That bleed is what lets the tiles drift on scroll without exposing an edge.
+ * They are texture, not a gallery: mix-blend-luminosity discards each photo's
+ * own colour and takes the hero gradient's instead, and a mask fades each bank
+ * out before it reaches the headline.
+ *
+ * No parallax here any more. Drift needs slack above and below to move into, and
+ * full-height tiles have none - it would pull a hard edge into the band.
+ *
+ * Left at the default quality on purpose: at 42% opacity under a luminosity
+ * blend and the veil, 75 is indistinguishable from 90 here and weighs less.
+ *
+ * Hidden below md, where the banks would collide with the headline.
  */
-const TILES = [
-  {
-    src: "/images/team-group.png",
-    style: { left: "0%", top: "0%", width: "40%", height: "56%" },
-    position: "50% 22%",
-    depth: 0.05,
-  },
-  {
-    src: "/images/team-chennai.png",
-    style: { left: "0%", top: "53%", width: "23%", height: "47%" },
-    // Portrait source in a landscape box: cover scales by width, so there is
-    // plenty of vertical travel. The faces sit about a third down.
-    position: "50% 30%",
-    depth: 0.11,
-  },
-  {
-    src: "/images/team-awards.png",
-    // Widened to take the whole strip under the presentation tile, which frees
-    // that tile to be short enough to have vertical travel of its own.
-    style: { left: "21%", top: "53%", width: "45%", height: "47%" },
-    position: "50% 28%",
-    depth: 0.08,
-  },
-  {
-    src: "/images/team-presentation.png",
-    // At 56% height this box is wider than the photo's own ratio, so cover now
-    // scales by width and leaves vertical slack. At full height it scaled by
-    // height instead and no amount of object-position moved it.
-    style: { left: "38%", top: "0%", width: "28%", height: "56%" },
-    position: "38% top",
-    depth: 0.14,
-  },
-  {
-    src: "/images/team-selfie.png",
-    // Pulled in from the right edge: the tile used to run past the viewport, so
-    // the third person was cropped by the screen rather than by the crop.
-    style: { left: "63%", top: "0%", width: "37%", height: "52%" },
-    position: "62% 20%",
-    depth: 0.06,
-  },
-  {
-    src: "/images/team-outdoors.png",
-    style: { left: "63%", top: "49%", width: "37%", height: "51%" },
-    position: "50% 25%",
-    depth: 0.12,
-  },
+const LEFT = [
+  { src: "/images/team-group.png", w: 636, h: 332, position: "50% 28%" },
+  { src: "/images/team-chennai.png", w: 387, h: 499, position: "50% 26%" },
+  { src: "/images/team-awards.png", w: 437, h: 314, position: "50% 30%" },
 ];
 
-export default function HeroPhotoWall() {
-  const ref = useRef(null);
+const RIGHT = [
+  { src: "/images/team-outdoors.png", w: 437, h: 228, position: "50% 28%" },
+  { src: "/images/team-selfie.png", w: 467, h: 294, position: "58% 22%" },
+  { src: "/images/team-presentation.png", w: 475, h: 301, position: "42% 20%" },
+];
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+/** Solid at the outer edge, gone before it reaches the headline. */
+const maskFor = (side) => {
+  const mask = `linear-gradient(${
+    side === "left" ? "90deg" : "270deg"
+  }, #000 0%, #000 40%, rgba(0,0,0,0.55) 74%, transparent 100%)`;
 
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      // A CSS variable, not React state — scrolling must never re-render these.
-      el.style.setProperty("--scroll", String(window.scrollY));
-    };
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
+  return { WebkitMaskImage: mask, maskImage: mask };
+};
 
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
+function Bank({ tiles, side }) {
+  const left = side === "left";
 
   return (
     <div
-      ref={ref}
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 -inset-y-[14%]"
+      style={maskFor(side)}
+      className={`absolute ${left ? "left-0" : "right-0 flex-row-reverse"} top-0 flex h-full w-[48%] items-stretch overflow-hidden`}
     >
-      {TILES.map((tile) => (
+      {tiles.map((tile, i) => (
         <span
           key={tile.src}
-          style={{
-            ...tile.style,
-            transform: `translate3d(0, calc(var(--scroll, 0) * ${tile.depth}px), 0)`,
-          }}
-          className="absolute overflow-hidden"
+          style={{ aspectRatio: `${tile.w} / ${tile.h}` }}
+          className="h-full shrink-0 overflow-hidden"
         >
           <Image
             src={tile.src}
             alt=""
-            fill
-            quality={95}
-            sizes="60vw"
+            width={tile.w}
+            height={tile.h}
+            sizes="420px"
+            // The outermost tile of each bank is above the fold and one of them
+            // is the LCP element, so it must not be lazy-loaded.
+            priority={i === 0}
             style={{ objectPosition: tile.position }}
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
         </span>
       ))}
+    </div>
+  );
+}
+
+export default function HeroPhotoWall() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 hidden opacity-[0.42] mix-blend-luminosity md:block"
+    >
+      <Bank tiles={LEFT} side="left" />
+      <Bank tiles={RIGHT} side="right" />
     </div>
   );
 }

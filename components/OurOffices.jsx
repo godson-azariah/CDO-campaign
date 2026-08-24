@@ -10,7 +10,7 @@ export default function OurOffices() {
     OFFICE_TABS.find((tab) => tab.id === activeId) ?? OFFICE_TABS[0];
 
   return (
-    <section className="trap-section-light py-[48px] lg:py-[70px]">
+    <section className="trap-section-tint py-[48px] lg:py-[70px]">
       <div className="mx-auto w-full max-w-[1440px] px-5 lg:px-[38px]">
         <h2 className="text-center text-[30px] leading-[1.3] font-bold text-heading sm:text-[36px] lg:text-[44px] lg:leading-[57.2px]">
           Our Offices

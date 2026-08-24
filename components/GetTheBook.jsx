@@ -1,48 +1,60 @@
 import Image from "next/image";
 
 /*
- * Sits flush at the foot of the panel as a full-bleed dark band, and the cover
- * breaks upward out of it into the white space above.
+ * Full-bleed dark band at the foot of the panel, with the cover on a line of
+ * its own breaking upward out of it into the white space above.
  *
  * That overlap is the hook: an element crossing its own boundary reads as
  * deliberate and pulls the eye far harder than anything sitting neatly inside a
- * box. No tilt, no gradient tricks — just the break and the contrast of a white
- * jacket on deep violet.
+ * box. No tilt, no gradient tricks - just the break, the size, and the contrast
+ * of a white jacket on deep violet.
+ *
+ * No overflow-hidden on this band: the cover has to break out of its top edge,
+ * and clipping it was exactly what cut the book in half. The texture layers are
+ * absolute inset-0, so they cannot leak past it on their own.
+ *
+ * flex-1 is load-bearing. The panel is stretched to match the form's height, and
+ * this band is what absorbs the difference - so the leftover collects here, as
+ * violet under the copy, rather than as white above the cover.
  */
-export default function GetTheBook() {
+export default function GetTheBook({ className = "" }) {
   return (
-    <div className="relative mt-[26px] bg-[#2c0a78] px-[24px] pt-[12px] pb-[26px] sm:px-[32px]">
+    <div
+      className={`relative mt-[18px] flex-1 bg-[#2c0a78] px-[22px] pt-[10px] pb-[52px] text-center sm:px-[30px] sm:pb-[68px] ${className}`}
+    >
+      {/* Same fine grid as the masthead. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_70%_at_18%_50%,rgba(255,255,255,0.16)_0%,transparent_72%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.064)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.064)_1px,transparent_1px)] bg-[size:56px_56px]"
       />
 
-      <div className="relative flex items-end gap-[18px]">
+      {/* Sits under the cover, lifting it off the flat violet. Kept soft so it
+          doesn't wash the grid out where the two overlap. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(56%_58%_at_50%_34%,rgba(255,255,255,0.13)_0%,transparent_72%)]"
+      />
+
+      <div className="relative">
         <Image
           src="/images/book-png.png"
           alt="Frugal Innovation book"
           width={486}
           height={513}
           quality={95}
-          sizes="300px"
-          className="-mt-[52px] h-auto w-[172px] shrink-0 drop-shadow-[0_16px_26px_rgba(0,0,0,0.55)] sm:w-[186px]"
+          sizes="400px"
+          className="mx-auto -mt-[86px] h-auto w-[268px] drop-shadow-[0_20px_30px_rgba(0,0,0,0.55)] sm:-mt-[106px] sm:w-[344px]"
         />
 
-        <div className="min-w-0 pb-[2px]">
-          <span className="inline-flex items-center gap-[6px] rounded-full bg-green px-[10px] py-[5px] text-[10px] font-extrabold tracking-[0.02em] text-white">
-            Free &middot; First 100 only
-          </span>
+        <h3 className="mt-[26px] text-[32px] leading-[38px] font-extrabold tracking-[-0.015em] text-white">
+          Get the Book
+        </h3>
 
-          <h3 className="mt-[11px] text-[23px] leading-[28px] font-extrabold tracking-[-0.015em] text-white">
-            Get the Book
-          </h3>
-
-          <p className="mt-[8px] text-[14px] leading-[22px] text-white/75">
-            Book a conversation and we&rsquo;ll post you{" "}
-            <span className="font-bold text-white">Frugal Innovation</span> —
-            the book behind the framework.
-          </p>
-        </div>
+        <p className="mx-auto mt-[12px] max-w-[404px] text-[17px] leading-[28px] text-white/75">
+          Book a conversation and we&rsquo;ll post you{" "}
+          <span className="font-bold text-white">Frugal Innovation</span> — the
+          book behind the framework.
+        </p>
       </div>
     </div>
   );

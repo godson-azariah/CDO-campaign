@@ -171,3 +171,46 @@ export const ClockIcon = (p) => (
     <path d="M12 7v5l3.5 2" />
   </Svg>
 );
+
+/*
+ * ── Parked icons ───────────────────────────────────────────────────────────
+ * Lifted out of WhyBookThisCall when that panel was stripped back. The three
+ * point icons are in use there again; ConversationIcon is not, and is kept on
+ * purpose so it can go straight back in if wanted - do not delete it as unused.
+ */
+
+/** Was the masthead badge: a speech bubble with three dots. */
+export const ConversationIcon = (p) => (
+  <Svg {...p}>
+    <path d="M20.5 11.8a8.2 8.2 0 0 1-11.6 7.4L3.5 20.5l1.4-5.3a8.2 8.2 0 1 1 15.6-3.4Z" />
+    <circle cx="8.6" cy="11.8" r="1" fill="currentColor" stroke="none" />
+    <circle cx="12.2" cy="11.8" r="1" fill="currentColor" stroke="none" />
+    <circle cx="15.8" cy="11.8" r="1" fill="currentColor" stroke="none" />
+  </Svg>
+);
+
+/** Was point 1, "Understand Your Priorities": a person with a star. */
+export const PriorityIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="10" cy="8" r="3.6" />
+    <path d="M3.5 20a6.5 6.5 0 0 1 11.4-4.2" />
+    <path d="m18.5 13.5 1.1 2.3 2.4.35-1.75 1.7.4 2.45-2.15-1.15-2.15 1.15.4-2.45L15 16.15l2.4-.35Z" />
+  </Svg>
+);
+
+/** Was point 2, "Explore New Possibilities": a target with an outward arrow. */
+export const PossibilityIcon = (p) => (
+  <Svg {...p}>
+    <circle cx="11" cy="13" r="8" />
+    <circle cx="11" cy="13" r="4" />
+    <path d="M11 13 21 3M16.5 3H21v4.5" />
+  </Svg>
+);
+
+/** Was point 3, "Leave With Practical Ideas": a lightbulb. */
+export const IdeaIcon = (p) => (
+  <Svg {...p}>
+    <path d="M15 14.5c.2-1.1.8-1.9 1.6-2.7A6 6 0 1 0 6 8c0 1.1.3 2.3 1.4 3.8.8.8 1.4 1.6 1.6 2.7" />
+    <path d="M9.5 18h5M10.5 21.5h3" />
+  </Svg>
+);

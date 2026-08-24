@@ -1,22 +1,29 @@
 import HeroPhotoWall from "./HeroPhotoWall";
 
+/*
+ * A short banner band rather than a full-height hero — the page's job is the
+ * form, so the top of it should be a title bar you read in one glance and
+ * scroll past. Photos live at the far edges as blended-in wall texture.
+ */
 export default function Hero() {
   return (
-    <section className="hero-wash relative overflow-hidden">
+    <section className="hero-wash relative isolate overflow-hidden">
       <HeroPhotoWall />
 
-      {/*
-        With the wall this dense the veil has to be heavy, or the headline
-        competes with a dozen faces. Darkest through the middle where the text
-        sits, lifting at the corners so the tiles still read.
-      */}
+      {/* Fine grid, the same texture the rest of the site uses. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(72%_62%_at_50%_50%,rgba(15,4,42,0.94)_0%,rgba(15,4,42,0.88)_38%,rgba(15,4,42,0.7)_100%)]"
+        className="pointer-events-none absolute inset-0 z-10 opacity-[0.5] bg-[linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:46px_46px]"
       />
 
-      <div className="relative z-20 mx-auto max-w-3xl px-5 py-[104px] text-center sm:px-8 sm:py-[132px] xl:py-[152px]">
-        <h1 className="mx-auto text-[27px] leading-[1.28] font-extrabold tracking-[-0.03em] text-balance text-white [text-shadow:0_2px_20px_rgba(6,1,24,0.8)] sm:text-[35px] lg:text-[40px]">
+      {/* Keeps the middle dark enough for the headline to sit cleanly. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(52%_76%_at_50%_50%,rgba(15,4,42,0.72)_0%,rgba(15,4,42,0.4)_62%,transparent_100%)]"
+      />
+
+      <div className="relative z-20 mx-auto max-w-3xl px-5 py-[44px] text-center sm:px-8 sm:py-[54px] lg:py-[62px]">
+        <h1 className="mx-auto text-[24px] leading-[1.26] font-extrabold tracking-[-0.03em] text-balance text-white [text-shadow:0_2px_18px_rgba(6,1,24,0.8)] sm:text-[30px] lg:text-[34px]">
           <span className="block">Rising Demand. Tighter Budgets.</span>
           <span className="block text-[#4fd1a5]">
             Frugal Innovation Is the Answer.
@@ -24,7 +31,7 @@ export default function Hero() {
           <span className="block">Book 30 Minutes to Find Out How.</span>
         </h1>
 
-        <p className="mx-auto mt-[20px] max-w-xl text-[15px] leading-[24px] text-white/85 [text-shadow:0_1px_12px_rgba(6,1,24,0.85)] sm:text-[16px]">
+        <p className="mx-auto mt-[14px] max-w-xl text-[14px] leading-[22px] text-white/85 [text-shadow:0_1px_12px_rgba(6,1,24,0.85)] sm:text-[15px]">
           Backed by Cambridge research, proven at Amgen and IAG.
         </p>
       </div>

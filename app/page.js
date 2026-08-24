@@ -1,4 +1,3 @@
-import ChicagoSummit from "@/components/ChicagoSummit";
 import ContactSection from "@/components/ContactSection";
 import FancyAChat from "@/components/FancyAChat";
 import Hero from "@/components/Hero";
@@ -14,7 +13,6 @@ export default function Home() {
       <main>
         <Hero />
         <ContactSection />
-        <ChicagoSummit />
         <OurOffices />
         <FancyAChat />
       </main>
