@@ -1,7 +1,7 @@
 const REASONS = [
   {
     title: "Meet the Mind Behind the Framework",
-    copy: "You'll speak directly with Roney Solomon, who co-developed Frugal Innovation with the University of Cambridge, UK — not an account manager reading from a script.",
+    copy: "You'll speak directly with Roney Soloman, who co-developed Frugal Innovation with the University of Cambridge, UK — not an account manager reading from a script.",
   },
   {
     title: "Find Out Before You Commit to Anything",
