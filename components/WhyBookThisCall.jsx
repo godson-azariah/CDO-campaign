@@ -34,23 +34,18 @@ export default function WhyBookThisCall() {
   return (
     <aside className="flex h-full flex-col overflow-hidden rounded-[16px] border border-card-line bg-white shadow-card">
       {/* ── Masthead ── */}
-      <div className="relative overflow-hidden bg-[linear-gradient(135deg,#3d1391_0%,#2c0a78_55%,#3a1499_100%)] px-[26px] pt-[30px] pb-[30px] sm:px-[34px] sm:pt-[34px] sm:pb-[34px]">
+      <div className="relative overflow-hidden bg-[linear-gradient(135deg,#3d1391_0%,#2c0a78_55%,#3a1499_100%)] px-[26px] py-[34px] sm:px-[34px] sm:py-[40px]">
         {/* Fine grid, the same texture the hero band carries. */}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.064)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.064)_1px,transparent_1px)] bg-[size:56px_56px]"
         />
 
-        <div className="relative">
+        <div className="relative text-center">
           {/* Sized to hold on one line in this column. */}
           <h2 className="text-[24px] leading-[1.14] font-extrabold tracking-[-0.03em] whitespace-nowrap text-white sm:text-[28px]">
             Sign Up to Get Your Book
           </h2>
-
-          <span
-            aria-hidden="true"
-            className="mt-[16px] block h-[3px] w-[56px] rounded-full bg-[#4fd1a5]"
-          />
         </div>
       </div>
 
