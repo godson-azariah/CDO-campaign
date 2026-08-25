@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
@@ -21,6 +22,9 @@ export default function RootLayout({ children }) {
         {children}
         <Analytics />
       </body>
+
+      {/* GA4. Loads gtag.js after hydration rather than blocking first paint. */}
+      <GoogleAnalytics gaId="G-4EGTDXC0CL" />
     </html>
   );
 }
