@@ -1,4 +1,5 @@
 import { Urbanist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const urbanist = Urbanist({
@@ -16,7 +17,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${urbanist.variable} h-full`}>
-      <body className="min-h-full bg-white">{children}</body>
+      <body className="min-h-full bg-white">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
