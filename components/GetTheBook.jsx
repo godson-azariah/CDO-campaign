@@ -2,7 +2,8 @@ import Image from "next/image";
 
 /*
  * Full-bleed dark band at the foot of the panel, with the cover on a line of
- * its own breaking upward out of it into the white space above.
+ * its own breaking upward out of it into the white space above. The cover is
+ * the only place the title appears now, so the copy under it stays generic.
  *
  * That overlap is the hook: an element crossing its own boundary reads as
  * deliberate and pulls the eye far harder than anything sitting neatly inside a
@@ -68,9 +69,7 @@ export default function GetTheBook({ className = "" }) {
         </h3>
 
         <p className="mx-auto mt-[16px] max-w-[444px] text-[22px] leading-[33px] text-balance text-white/85">
-          Sign up and we&rsquo;ll ship{" "}
-          <span className="font-bold text-white">Frugal Innovation</span>{" "}
-          straight to you.
+          Sign up and we&rsquo;ll ship straight to you
         </p>
       </div>
     </div>

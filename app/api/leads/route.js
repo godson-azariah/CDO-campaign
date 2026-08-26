@@ -16,14 +16,18 @@ export async function POST(request) {
   try {
     payload = await request.json();
   } catch {
-    return Response.json({ ok: false, message: "Malformed request." }, { status: 400 });
+    return Response.json(
+      { ok: false, message: "Malformed request" },
+      { status: 400 },
+    );
   }
 
   // ── Bot traps ───────────────────────────────────────────────
   // Answers with a normal success so a bot learns nothing about why it
   // was dropped, and stops retrying.
   const isBot =
-    (typeof payload.companyWebsite === "string" && payload.companyWebsite.trim()) ||
+    (typeof payload.companyWebsite === "string" &&
+      payload.companyWebsite.trim()) ||
     Number(payload.elapsedMs) < MIN_FILL_MS;
 
   if (isBot) {
@@ -36,7 +40,8 @@ export async function POST(request) {
     return Response.json(
       {
         ok: false,
-        message: "Too many requests from this connection. Please try again shortly.",
+        message:
+          "Too many requests from this connection — please try again shortly",
       },
       { status: 429 },
     );
@@ -52,7 +57,7 @@ export async function POST(request) {
       if (field && !errors[field]) errors[field] = issue.message;
     }
     return Response.json(
-      { ok: false, message: "Please check the highlighted fields.", errors },
+      { ok: false, message: "Please check the highlighted fields", errors },
       { status: 400 },
     );
   }
@@ -61,9 +66,14 @@ export async function POST(request) {
   const notifyTo = process.env.TEAM_NOTIFICATION_ADDRESS;
 
   if (!notifyTo) {
-    console.error("[leads] TEAM_NOTIFICATION_ADDRESS is not set — refusing the request.");
+    console.error(
+      "[leads] TEAM_NOTIFICATION_ADDRESS is not set — refusing the request.",
+    );
     return Response.json(
-      { ok: false, message: "The form is not configured yet. Please try again later." },
+      {
+        ok: false,
+        message: "The form is not configured yet — please try again later",
+      },
       { status: 500 },
     );
   }
@@ -85,7 +95,7 @@ export async function POST(request) {
       {
         ok: false,
         message:
-          "We could not submit your request just now. Please try again in a moment.",
+          "We could not submit your request just now — please try again in a moment",
       },
       { status: 502 },
     );
@@ -108,7 +118,12 @@ export async function POST(request) {
           ...confirmationEmail(lead),
         });
       } catch (error) {
-        console.error("[leads] confirmation to", lead.workEmail, "failed:", error);
+        console.error(
+          "[leads] confirmation to",
+          lead.workEmail,
+          "failed:",
+          error,
+        );
       }
     });
   }

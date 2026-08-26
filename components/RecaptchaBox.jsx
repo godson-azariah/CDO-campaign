@@ -152,7 +152,7 @@ export default function RecaptchaBox({ onChange, error }) {
           role="status"
           className="px-[12px] pb-[9px] text-[12px] leading-[14px] text-[#d93025]"
         >
-          Verification expired. Check the checkbox again.
+          Verification expired &mdash; check the checkbox again
         </p>
       )}
     </div>

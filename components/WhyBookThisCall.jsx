@@ -5,26 +5,29 @@ import { IdeaIcon, PossibilityIcon, PriorityIcon } from "./icons";
  * Headings only, no supporting copy - the panel exists to set up the book offer,
  * so everything it doesn't strictly need has been taken out.
  *
- * The three points sit across one row, icon over a two-line title. That is what
- * the extra column width bought: laid out across instead of down, the list costs
- * a third of the height it used to, and all of that goes to the cover below.
+ * The three points sit across one row, icon over a title that must come out at
+ * two lines. The longest of them is 38 characters, so at this column width the
+ * type has to be 13.5px for its balanced split to fit - drop the padding or the
+ * gap any further and it wraps to three again.
  *
- * The masthead's speech-bubble icon stays parked in ./icons as ConversationIcon:
- * putting it back would push the single-line heading wider than this column.
+ * The tints alternate by position, not by icon - the middle cell is the green
+ * one wherever its point happens to sit.
+ *
+ * The masthead's speech-bubble icon stays parked in ./icons as ConversationIcon.
  */
 const POINTS = [
   {
-    title: "Understand Your Priorities",
+    title: "Explore new possibilities",
     tint: "bg-[#efe6ff] text-violet",
-    Icon: PriorityIcon,
-  },
-  {
-    title: "Explore New Possibilities",
-    tint: "bg-[#e2f4ec] text-green",
     Icon: PossibilityIcon,
   },
   {
-    title: "Leave With Practical Ideas",
+    title: "See how it fits your current priorities",
+    tint: "bg-[#e2f4ec] text-green",
+    Icon: PriorityIcon,
+  },
+  {
+    title: "Leave with practical ideas",
     tint: "bg-[#efe6ff] text-violet",
     Icon: IdeaIcon,
   },
@@ -42,7 +45,7 @@ export default function WhyBookThisCall() {
       */}
       <div className="px-[26px] pt-[32px] pb-[8px] text-center sm:px-[34px] sm:pt-[38px] sm:pb-[10px]">
         <h2 className="text-[24px] leading-[1.18] font-extrabold tracking-[-0.03em] text-balance text-heading sm:text-[28px]">
-          What You&rsquo;ll Discover on the Call
+          What you&rsquo;ll discover on the call:
         </h2>
       </div>
 
@@ -56,7 +59,7 @@ export default function WhyBookThisCall() {
         showed up as a band of white above the cover. The offer below takes it
         instead, so the slack lands inside the violet.
       */}
-      <ol className="grid gap-y-[22px] px-[24px] pt-[28px] pb-[76px] sm:grid-cols-3 sm:gap-x-[14px] sm:px-[28px] sm:pb-[96px]">
+      <ol className="grid gap-y-[22px] px-[24px] pt-[28px] pb-[76px] sm:grid-cols-3 sm:gap-x-[10px] sm:px-[14px] sm:pb-[96px]">
         {POINTS.map(({ title, tint, Icon }) => (
           <li
             key={title}
@@ -67,7 +70,7 @@ export default function WhyBookThisCall() {
             >
               <Icon className="h-[24px] w-[24px]" />
             </span>
-            <h3 className="text-[15.5px] leading-[21px] font-bold text-balance text-heading">
+            <h3 className="text-[13.5px] leading-[19px] font-bold text-balance text-heading">
               {title}
             </h3>
           </li>

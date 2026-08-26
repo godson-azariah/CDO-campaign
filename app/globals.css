@@ -142,19 +142,41 @@ body {
 }
 
 /* Compact landing hero (kept from the earlier revision) */
+/*
+ * Matched to the hero band on ignitho.com: dark violet at the left edge,
+ * brightest around a third across, then falling through blue into teal on the
+ * right, with the top and bottom edges pulled down slightly.
+ *
+ * BACKUP - the previous recipe was:
+ *
+ *   radial-gradient(120% 90% at 82% 8%, rgba(34,197,140,0.22) 0%, transparent 55%),
+ *   radial-gradient(90% 70% at 12% 92%, rgba(124,58,237,0.45) 0%, transparent 60%),
+ *   linear-gradient(118deg, #2a1266 0%, #451a9e 42%, #3a2f9c 68%, #1c6a85 100%)
+ */
 .hero-wash {
   background:
-    radial-gradient(
-      120% 90% at 82% 8%,
-      rgba(34, 197, 140, 0.22) 0%,
-      transparent 55%
+    linear-gradient(
+      180deg,
+      rgba(8, 2, 32, 0.18) 0%,
+      transparent 26%,
+      transparent 74%,
+      rgba(8, 2, 32, 0.18) 100%
     ),
     radial-gradient(
-      90% 70% at 12% 92%,
-      rgba(124, 58, 237, 0.45) 0%,
-      transparent 60%
+      78% 150% at 36% 46%,
+      rgba(142, 46, 236, 0.2) 0%,
+      transparent 70%
     ),
-    linear-gradient(118deg, #2a1266 0%, #451a9e 42%, #3a2f9c 68%, #1c6a85 100%);
+    linear-gradient(
+      96deg,
+      #2c1168 0%,
+      #391380 18%,
+      #45169a 38%,
+      #421a99 56%,
+      #313091 72%,
+      #1d5271 90%,
+      #164760 100%
+    );
 }
 
 .dot-grid {

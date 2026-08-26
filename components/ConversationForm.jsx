@@ -182,7 +182,7 @@ export default function ConversationForm() {
             ?.focus();
         }
         setSubmitError(
-          result.message || "Something went wrong. Please try again.",
+          result.message || "Something went wrong — please try again",
         );
         return;
       }
@@ -191,7 +191,7 @@ export default function ConversationForm() {
       setDone(true);
     } catch {
       setSubmitError(
-        "We could not reach the server. Check your connection and try again.",
+        "We could not reach the server — check your connection and try again",
       );
     } finally {
       setSubmitting(false);
@@ -220,23 +220,22 @@ export default function ConversationForm() {
           Your conversation is requested
         </h3>
         <p className="mx-auto mt-[10px] max-w-[420px] text-[16px] leading-[26px] text-body">
-          Thanks, {values.firstName || "there"}.{" "}
+          Thanks, {values.firstName || "there"} &mdash;{" "}
           {confirmationSent ? (
             <>
-              A confirmation is on its way to{" "}
+              a confirmation is on its way to{" "}
               <span className="font-semibold text-heading">
                 {values.workEmail}
               </span>
-              .
             </>
           ) : (
-            <>Our team has your request and will be in touch shortly.</>
+            <>our team has your request and will be in touch shortly</>
           )}
         </p>
 
         <p className="mx-auto mt-[22px] max-w-[420px] text-[14px] leading-[22px] text-muted">
           Roney will be in touch by email within one business day to arrange a
-          time.
+          time
         </p>
       </div>
     );
