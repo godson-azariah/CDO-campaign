@@ -25,12 +25,21 @@ export async function POST(request) {
   // ── Bot traps ───────────────────────────────────────────────
   // Answers with a normal success so a bot learns nothing about why it
   // was dropped, and stops retrying.
-  const isBot =
-    (typeof payload.companyWebsite === "string" &&
-      payload.companyWebsite.trim()) ||
-    Number(payload.elapsedMs) < MIN_FILL_MS;
+  //
+  // The response is deliberately indistinguishable from a real one, which
+  // makes a false positive impossible to tell apart from a delivered lead.
+  // So say so in the log: invisible to the submitter, obvious to us.
+  const honeypot =
+    typeof payload.companyWebsite === "string" &&
+    payload.companyWebsite.trim() !== "";
+  const tooFast = Number(payload.elapsedMs) < MIN_FILL_MS;
 
-  if (isBot) {
+  if (honeypot || tooFast) {
+    console.warn(
+      "[leads] dropped as a bot —",
+      honeypot ? "honeypot filled" : "",
+      tooFast ? `filled in ${payload.elapsedMs}ms, under ${MIN_FILL_MS}ms` : "",
+    );
     return Response.json({ ok: true, confirmationSent: false });
   }
 
@@ -89,6 +98,10 @@ export async function POST(request) {
       replyTo: lead.workEmail,
       ...notificationEmail(lead),
     });
+
+    // Pairs with the bot-trap warning above, so every submission leaves a
+    // trace: either it was dropped, or it went out and to where.
+    console.log("[leads] notification sent to", notifyTo);
   } catch (error) {
     console.error("[leads] notification failed:", error);
     return Response.json(
