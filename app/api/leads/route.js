@@ -50,7 +50,7 @@ export async function POST(request) {
       {
         ok: false,
         message:
-          "Too many requests from this connection — please try again shortly",
+          "Too many requests from this connection, please try again shortly",
       },
       { status: 429 },
     );
@@ -81,7 +81,7 @@ export async function POST(request) {
     return Response.json(
       {
         ok: false,
-        message: "The form is not configured yet — please try again later",
+        message: "The form is not configured yet, please try again later",
       },
       { status: 500 },
     );
@@ -108,7 +108,7 @@ export async function POST(request) {
       {
         ok: false,
         message:
-          "We could not submit your request just now — please try again in a moment",
+          "We could not submit your request just now, please try again in a moment",
       },
       { status: 502 },
     );

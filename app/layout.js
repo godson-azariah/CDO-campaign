@@ -12,7 +12,7 @@ const urbanist = Urbanist({
 export const metadata = {
   title: "Schedule a Conversation | Ignitho",
   description:
-    "Connecting you to specialist expertise — book a 30-minute conversation about scaling your data estate, Frugal Innovation, and your Data & AI investments",
+    "Connecting you to specialist expertise, book a 30-minute conversation about scaling your data estate, Frugal Innovation, and your Data & AI investments",
 };
 
 export default function RootLayout({ children }) {

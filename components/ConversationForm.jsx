@@ -182,7 +182,7 @@ export default function ConversationForm() {
             ?.focus();
         }
         setSubmitError(
-          result.message || "Something went wrong — please try again",
+          result.message || "Something went wrong, please try again",
         );
         return;
       }
@@ -191,7 +191,7 @@ export default function ConversationForm() {
       setDone(true);
     } catch {
       setSubmitError(
-        "We could not reach the server — check your connection and try again",
+        "We could not reach the server, check your connection and try again",
       );
     } finally {
       setSubmitting(false);
@@ -220,7 +220,7 @@ export default function ConversationForm() {
           Your conversation is requested
         </h3>
         <p className="mx-auto mt-[10px] max-w-[420px] text-[16px] leading-[26px] text-body">
-          Thanks, {values.firstName || "there"} &mdash;{" "}
+          Thanks, {values.firstName || "there"},{" "}
           {confirmationSent ? (
             <>
               a confirmation is on its way to{" "}
